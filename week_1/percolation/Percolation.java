@@ -1,19 +1,19 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    Boolean[][] grid;
-    WeightedQuickUnionUF wqu;
-    int width;
-    int origin;
-    int destination;
-    int openSites;
+    private boolean[][] grid;
+    private WeightedQuickUnionUF wqu;
+    private int width;
+    private int origin;
+    private int destination;
+    private int openSites;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
-        if (n <= 0) {
+        if (n < 1) {
             throw new IllegalArgumentException();
         }
-        grid = new Boolean[n][n];
+        grid = new boolean[n][n];
         wqu = new WeightedQuickUnionUF(n*n+2);
         origin = n*n;
         destination = n*n+1;
@@ -56,7 +56,6 @@ public class Percolation {
         if (row < 1 || col < 1 || row > width || col > width) {
             throw new IllegalArgumentException();
         }
-        if (grid[row-1][col-1] == null) { return false; }
         return grid[row-1][col-1];
     }
 
@@ -82,25 +81,26 @@ public class Percolation {
     // // test client (optional)
     public static void main(String[] args) {
         Percolation perc = new Percolation(5);
-        perc.open(1,3);
-        perc.open(2,3);
-        perc.open(2,4);
-        perc.open(3,4);
-        perc.open(3,5);
-        perc.open(4,5);
+        System.out.println(perc.isFull(1, 3));
+        perc.open(1, 3);
+        perc.open(2, 3);
+        perc.open(2, 4);
+        perc.open(3, 4);
+        perc.open(3, 5);
+        perc.open(4, 5);
         // // is 4, 5 full?
-        System.out.println(perc.isFull(4,5));
-        perc.open(5,1);
+        System.out.println(perc.isFull(4, 5));
+        perc.open(5, 1);
         // // is 5, 1 full?
-        System.out.println(perc.isFull(5,1));
+        System.out.println(perc.isFull(5, 1));
         // does it percolate?
         System.out.println(perc.percolates());
-        perc.open(5,5);
+        perc.open(5, 5);
         // does it percolate?
         System.out.println(perc.percolates());
     }
 
     private int getIndex(int row, int col) {
-        return (width * (row-1)) + col;
+        return (width * (row-1)) + col - 1;
     }
 }
