@@ -52,3 +52,4 @@ public class PercolationStats {
         StdOut.printf("95%% confidence interval = [%.17f, %.17f]\n", stats.confidenceLo(), stats.confidenceHi());
     }
 }
+ 
